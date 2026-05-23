@@ -1,4 +1,5 @@
 using DotNetStarterProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using System.Diagnostics;
@@ -14,6 +15,7 @@ namespace DotNetStarterProject.Controllers
             _configuration = configuration;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -66,11 +68,13 @@ namespace DotNetStarterProject.Controllers
             return View(sampleItems);
         }
 
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
